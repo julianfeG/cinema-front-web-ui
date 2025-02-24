@@ -1,0 +1,19 @@
+<mat-divider></mat-divider>
+
+<div class="container">
+  <h2 class="title">Teatros</h2>
+  
+  <div class="theater-grid">
+    <div *ngFor="let theater of theaters">
+      <app-theaterspace class="theater-card" [theater]="theater"></app-theaterspace>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isAdminMode" style="text-align: center; margin-top: 30px;">
+    <button mat-raised-button color="primary" [routerLink]="['/cinema/theater-add']">
+        Añadir Sala
+    </button>
+</div>
+<br>

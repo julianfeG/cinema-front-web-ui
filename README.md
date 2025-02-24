@@ -1,27 +1,58 @@
-# CinemaFrontWebUi
+# **Despliegue de la Aplicación Angular**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
+## **📌 Requisitos previos**
+- Tener instalado **Node.js** y **npm**.
+- Tener instalado **Angular CLI** (`npm install -g @angular/cli`).
+- Acceso a un bucket S3 en AWS para el despliegue.
 
-## Development server
+## **💻 Pruebas en local**
+Para ejecutar el proyecto en tu máquina local:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### **1️⃣ Instalar dependencias**
+```sh
+npm install
+```
 
-## Code scaffolding
+### **2️⃣ Iniciar el servidor de desarrollo**
+```sh
+npm run start
+```
+Esto iniciará el servidor en `localhost:4200`.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### **3️⃣ Abrir la aplicación en el navegador**
+Ve a:
+```
+http://localhost:4200
+```
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## **🚀 Despliegue en AWS S3**
+Para desplegar la aplicación en producción, sigue estos pasos:
 
-## Running unit tests
+### **1️⃣ Construir el proyecto para producción**
+```sh
+ng build --configuration=production
+```
+Esto generará el código optimizado en la carpeta `dist/`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### **2️⃣ Subir el contenido de `dist/` al bucket S3**
+Sube todos los archivos generados en `dist/` a tu bucket S3 en AWS.
 
-## Running end-to-end tests
+Si tienes la AWS CLI configurada, puedes hacerlo con:
+```sh
+aws s3 sync dist/ s3://TU_BUCKET_S3 --delete
+```
+Reemplaza `TU_BUCKET_S3` con el nombre de tu bucket en AWS.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+---
 
-## Further help
+## **🌍 Enlace de Producción**
+La aplicación en producción está disponible en:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+[🔗 **Clic aquí para acceder**](https://d35zwan0ksaeux.cloudfront.net/cinema/movies)
+
+---
+
+✨ **Ahora puedes ejecutar y desplegar tu aplicación Angular fácilmente.** 🚀
+

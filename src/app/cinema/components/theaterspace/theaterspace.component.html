@@ -1,0 +1,27 @@
+<mat-card class="theater-card">
+  <mat-card-header>
+    <mat-card-title>{{ theater.name }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p><strong>Capacidad:</strong> {{ theater.columns * theater.rows }}</p>
+    <p><strong>Filas:</strong> {{ theater.rows }} - <strong>Columnas:</strong> {{ theater.columns }}</p>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button *ngIf="!isAdminMode" mat-raised-button color="primary" 
+            [routerLink]="['/cinema/movies']">
+      Reservar
+    </button>
+
+    <ng-container *ngIf="isAdminMode">
+      <button mat-raised-button color="accent" 
+              [routerLink]="['/cinema/theater-edit', theater.id]">
+        Actualizar
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteTheater(theater.id)">
+        Borrar
+      </button>
+    </ng-container>
+  </mat-card-actions>
+</mat-card>

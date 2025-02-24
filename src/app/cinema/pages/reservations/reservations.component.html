@@ -1,0 +1,59 @@
+<mat-card>
+    <mat-card-title>{{ isAdminMode ? 'Reservas' : 'Mis Reservas' }}</mat-card-title>
+  
+    <mat-form-field appearance="outline" class="filter-dropdown">
+      <mat-label>Filtrar por Película</mat-label>
+      <mat-select [(ngModel)]="selectedMovie" (selectionChange)="filterByMovie()">
+        <mat-option value="Todas">Todas</mat-option>
+        <mat-option *ngFor="let movie of uniqueMovies" [value]="movie">{{ movie }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  
+        <!-- Columna Película -->
+        <ng-container matColumnDef="pelicula">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Película </th>
+          <td mat-cell *matCellDef="let element"> {{ element.pelicula }} </td>
+        </ng-container>
+  
+        <!-- Columna Sala -->
+        <ng-container matColumnDef="sala">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sala </th>
+          <td mat-cell *matCellDef="let element"> {{ element.sala }} </td>
+        </ng-container>
+  
+        <!-- Columna Fecha -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{ element.fecha | date:'shortDate' }} </td>
+        </ng-container>
+  
+        <!-- Columna Hora -->
+        <ng-container matColumnDef="hora">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora </th>
+          <td mat-cell *matCellDef="let element"> {{ element.hora }} </td>
+        </ng-container>
+  
+        <!-- Columna Email -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+          <td mat-cell *matCellDef="let element"> {{ element.email }} </td>
+        </ng-container>
+  
+        <!-- Columna Asientos -->
+        <ng-container matColumnDef="asientos">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Asientos </th>
+          <td mat-cell *matCellDef="let element"> {{ element.asientos.join(', ') }} </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  
+    <!-- Paginación -->
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+  </mat-card>
+  

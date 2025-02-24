@@ -1,0 +1,63 @@
+<h1>
+    {{ (movie.id) ? 'Editar' : 'Nueva' }}
+    pelicula 
+    <small>{{movie.title}}</small>
+</h1>
+
+<div fxLayout="row" fxLayoutGap="40px">
+
+    <div fxFlex="50" fxLayout="column">
+        <mat-form-field fxFlex="100">
+            <mat-label>Titulo</mat-label>
+            <input matInput
+                   type="text"
+                   [(ngModel)]="movie.title"
+                   required>
+        </mat-form-field>
+        <mat-form-field fxFlex="100" fxLayout.xs="column">
+            <mat-label>Genero</mat-label>
+            <input matInput
+                   type="text"
+                   [(ngModel)]="movie.genre"
+                   required>
+        </mat-form-field>
+        <mat-form-field fxFlex="100">
+            <mat-label>Clasificación</mat-label>
+            <input matInput
+                   type="text"
+                   [(ngModel)]="movie.classification"
+                   required>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="100">
+            <mat-label>Duración</mat-label>
+            <input matInput
+                   type="text"
+                   [(ngModel)]="movie.duration"
+                   required>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="100">
+            <mat-label>Foto Url</mat-label>
+            <input matInput
+                   type="url"
+                   [(ngModel)]="movie.alt_img"
+                   required>
+        </mat-form-field>
+
+        <br>
+
+        <div fxLayout>
+            <button mat-raised-button
+                    color="primary"
+                    (click)="guardar()">
+                <mat-icon fontIcon="edit"></mat-icon>
+                {{ (movie.id) ? 'Actualizar' : 'Crear' }}
+            </button>
+        </div>
+    </div>
+    <div fxFlex="50">
+        <img [src]="movie | imagen">
+    </div>
+
+</div>

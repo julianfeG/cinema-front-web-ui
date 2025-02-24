@@ -1,0 +1,89 @@
+<mat-divider></mat-divider>
+<mat-card *ngIf="selectedTheater?.id !== '0'">
+    <mat-card-header>
+        <mat-card-title> {{ selectedMovie?.title }} - Sala {{ selectedTheater?.id }} </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="movie-info-cards">
+            <mat-card class="info-card">
+                <mat-card-title>Duración</mat-card-title>
+                <mat-card-content>{{ selectedMovie?.duration }}</mat-card-content>
+            </mat-card>
+    
+            <mat-card class="info-card">
+                <mat-card-title>Género</mat-card-title>
+                <mat-card-content>{{ selectedMovie?.genre }}</mat-card-content>
+            </mat-card>
+    
+            <mat-card class="info-card">
+                <mat-card-title>Clasificación</mat-card-title>
+                <mat-card-content>{{ selectedMovie?.classification }}</mat-card-content>
+            </mat-card>
+    
+            <mat-card class="info-card">
+                <mat-card-title>Capacidad</mat-card-title>
+                <mat-card-content>{{ (selectedTheater?.columns ?? 0) * (selectedTheater?.rows ?? 0) }}</mat-card-content>
+            </mat-card>
+        </div>
+        <div class="theater-container">
+            <div class="theater-screen">Pantalla</div>
+            <div class="theater-layout">
+                <div *ngFor="let row of [].constructor(selectedTheater?.rows); let rowIndex = index" class="theater-row">
+                    <div 
+                        *ngFor="let col of [].constructor(selectedTheater?.columns); let colIndex = index"
+                        class="seat" 
+                        [ngClass]="{
+                            'occupied': isSeatOccupied(rowIndex + 1, colIndex + 1),
+                            'selected': isSeatSelected(rowIndex + 1, colIndex + 1)
+                        }"
+                        (click)="toggleSeatSelection(rowIndex + 1, colIndex + 1)"
+                    ></div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+
+    <p class="seats-text">Asientos seleccionados: {{selectedSeats.length}}</p>
+
+    <form class="email-form">
+        <mat-form-field class="email-full-width">
+          <mat-label>Email</mat-label>
+          <input 
+            type="email" 
+            matInput 
+            [(ngModel)]="email" 
+            name="email" 
+            #emailInput="ngModel" 
+            placeholder="Ex. pat@example.com" 
+            required 
+            email>
+      
+          <mat-error *ngIf="emailInput.errors?.['email'] && !emailInput.errors?.['required']">
+            Ingresa un email <strong>válido</strong>
+          </mat-error>
+      
+          <mat-error *ngIf="emailInput.errors?.['required']">
+            El email es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+        <br>
+        
+      </form>
+      <p class="email-text">Te enviaremos un comprobante de tu reserva a tu email.</p>
+
+      <div class="center-actions">
+        <mat-card-actions >
+            <button 
+              mat-button 
+              color="secondary" 
+              class="reservar-btn"
+              (click)="reserveSeats()"
+              [disabled]="!emailInput.valid || selectedSeats.length === 0">
+              Reservar
+            </button>
+          </mat-card-actions>
+    </div>
+      
+      
+</mat-card>

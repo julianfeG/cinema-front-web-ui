@@ -1,0 +1,45 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title> {{ movie.title }} </mat-card-title>
+        <mat-card-subtitle> {{ movie.genre }} </mat-card-subtitle>
+    </mat-card-header>
+
+    <img mat-card-image [src]="movie | imagen">
+
+    <mat-card-content>
+        <p>
+            <strong> Género: </strong> {{ movie.genre }}
+            <br>
+            <strong> Clasificación: </strong> {{ movie.classification }}
+            <br>
+            <strong> Duración: </strong> {{ movie.duration }}
+        </p>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <ng-container *ngIf="!isAdminMode; else adminActions">
+            <ng-container *ngIf="movie.showtimes && movie.showtimes.length > 0; else noShowtimes">
+                <button mat-button [matMenuTriggerFor]="menu">Horarios Disponibles</button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item *ngFor="let show of movie.showtimes"
+                            [routerLink]="['/cinema/seats']"
+                            [queryParams]="{ showtime: show.id }">
+                        {{ show.datetime | date:'dd/MM/yyyy - HH:mm' }} - Sala {{ show.theater_id }}
+                    </button>
+                </mat-menu>
+            </ng-container>
+        </ng-container>
+    
+        <ng-template #adminActions>
+            <div class="admin-actions">
+                <button mat-button color="secondary" (click)="updateMovie(movie)">Actualizar</button>
+                <button mat-button color="warn" (click)="deleteMovie(movie)">Borrar</button>
+            </div>
+        </ng-template>
+    
+        <ng-template #noShowtimes>
+            <p><strong>Próximamente</strong></p>
+        </ng-template>
+    </mat-card-actions>
+    
+</mat-card>
